@@ -10,9 +10,7 @@
   "author": "DanCR",
   "license": "ISC",
   "devDependencies": {
-    "lite-server": "^2.6.1"
-  },
-  "dependencies": {
+    "lite-server": "^2.6.1",
     "dotenv": "^16.4.7"
   }
 }
