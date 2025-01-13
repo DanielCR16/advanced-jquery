@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Evento DOM Listo</h1>
+    <p>
+        Normalmente, desearemos manipular el DOM (Document Object Mode),
+    </p>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+        // JQUERY TRADICIONAL
+        $(document).ready(pagina_lista());
+        // JQUERY CORTO
+        $(pagina_lista());
+        //??
+        r(pagina_lista);
+        function r(f) {
+            /in/.test(document.readyState) ? setTimeout('r(' + f + ')', 10) : f()
+        }
+        //MODERNO nativo
+        document.addEventListener('DOMContentLoaded', pagina_lista);
+
+        function pagina_lista() {
+            console.log("pagina cargada");
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+        <h1>DanCR16</h1>
+        <p id="parrafo">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae fugiat error eaque cupiditate dolor
+            quae
+            neque quam repellat dolorum? Totam excepturi sunt odit temporibus quisquam numquam, illum consequuntur sint
+            ex.
+        </p>
+
+        <div id="elem">
+
+        </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+    //// NO OPTIMIZADOOOO!!!!!!!!!!!!!
+        var init=new Date();
+       
+        var $elem=$('#elem');
+        for(var i =0 ;i<=1000;i++){
+          $elem.append('<li>Elemento'+i+'</li>');  
+         
+        }
+        var fin=new Date();
+        console.log(init.getTime());
+        console.log(fin.getTime());
+        console.log(fin.getTime()-init.getTime());
+
+    //// NO OPTIMIZADOOOO!!!!!!!!!!!!!
+    var init1=new Date(),
+    arr=[];
+    for(var i =0 ;i<=1000;i++){
+          arr.push('<li>Elemento'+i+'</li>');
+        }
+        $elem.append(arr.join(''));
+    var fin1=new Date();
+    console.log(init1.getTime());
+        console.log(fin1.getTime());
+        console.log(fin1.getTime()-init1.getTime());
+    </script>
+</body>
+
+</html>

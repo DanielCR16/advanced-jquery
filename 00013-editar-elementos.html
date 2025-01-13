@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style id="divStyle">
+        html {
+            background-color: black;
+            position: relative;
+        }
+
+        body {
+            font-size: 20px;
+            color: white;
+        }
+    </style>
+    <div id="divEditable">
+        <h1>DanCR16</h1>
+        <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae fugiat error eaque cupiditate dolor
+            quae
+            neque quam repellat dolorum? Totam excepturi sunt odit temporibus quisquam numquam, illum consequuntur sint
+            ex.
+        </p>
+
+    </div>
+
+    <button type="button" class="btn btn-primary">Guardar</button>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+        //EDITAR ELEMENTOS
+        // $("h1, p").attr("contentEditable",true);
+
+        //! el scope solo sera del #divEditable
+        $('#divEditable').attr("contentEditable", true);
+        //EDITAR LOS ESTILOS insertados
+       // $("#divStyle").css({ 'display': 'block', 'white-space': 'pre' }).attr("contentEditable", true);
+        
+       $('button').on('click',function(){
+        let contenido = $('#divEditable').text();
+        let contenidoHTML = $('#divEditable').html();
+        console.log("xxxx",contenido);
+        console.log("html",contenidoHTML);
+       });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+ 
+      
+</head>
+
+<body>
+    <style >
+    
+        body {
+            font-size: 20px;
+     
+        
+            padding: 20px;
+        }
+    </style>
+
+        <h1>DanCR16</h1>
+        <p id="parrafo">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae fugiat error eaque cupiditate dolor
+            quae
+            neque quam repellat dolorum? Totam excepturi sunt odit temporibus quisquam numquam, illum consequuntur sint
+            ex.
+        </p>
+
+    <ul>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   <script>
+   var arr=$('li');
+   var iteraciones=100000;
+ 
+   //CICLO NATIVO (MAS RAPIDO)
+   console.time("ciclo nativo");
+    for(var i=0;i<iteraciones;i++){
+        var largo = arr.length;
+        for(var x = 0;x<largo;x++){
+            arr[x];
+          //  arr[x].innerText = `Nuevo texto ${x}`;
+        }
+    }
+   //console.log(arr)
+   console.timeEnd("ciclo nativo");     
+
+    //CICLO FOREACH(MAS LENTO)
+    console.time("ciclo foreach");
+     for(var z=0;z<iteraciones;z++){
+        arr.each(function(i,val){
+         this;
+         //this.innerText = 'Nuevo texto';
+        });
+     }
+    console.timeEnd("ciclo foreach");  
+
+    </script>
+    
+</body>
+
+</html>

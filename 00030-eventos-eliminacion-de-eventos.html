@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+
+    <!-- ESTE ESTILO INDICA QUE SE MUESTRA EL HML CUANDO JS ESTA PRENDIDO -->
+
+    <style>
+        #ball {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            border-radius: 100%;
+            background-color: rebeccapurple;
+        }
+    </style>
+
+    <h1>DanCR16</h1>
+    <p id="parrafo">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae fugiat error eaque cupiditate dolor
+        quae
+        neque quam repellat dolorum? Totam excepturi sunt odit temporibus quisquam numquam, illum consequuntur sint
+        ex.
+    </p>
+    <div id="holder">
+        <button type="button" id="boton1">1</button>
+        <button type="button" id="boton2">2</button>
+        <button type="button" id="boton3">3</button>
+        <button type="button" id="boton4">4</button>
+        <button type="button" style="float: right;" id="boton5">Limpiar</button>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+
+       var boton1= $("#boton1"),
+           boton2= $("#boton2"),
+           boton3= $("#boton3"),
+           boton4= $("#boton4"),
+           boton5= $("#boton5");
+    //-------EVENTO CLICK
+        boton1.on('click',function(){
+            console.log("click");
+        });
+    //-------EVENTO ENTRA Y SALE CON EL MOUSE 
+        boton2.on('mouseenter mouseleave',function(){
+            console.log("Entro mouse / salio mouse");
+        });
+    //-------PARAMETROS EXTRA EN LOS EVENTOS  
+        boton3.on('click',Math.round(Math.random()*20),function(e){
+            console.log("El numero random es",e.data);
+        });
+
+    //-------AGREGARLE DISTINTIVO O NOMBRE A UN EVENTO  
+        boton4.on('click.temp',function(){
+            console.log("Temp disparado!!");
+        });
+
+        boton5.on('click',function(){
+            console.clear();
+
+    //-------ELIMINAR EVENTOS
+            $('button').off('.temp');
+            console.log("Eventos de los botones TEMP eliminados");
+        });
+
+
+    </script>
+
+</body>
+
+</html>

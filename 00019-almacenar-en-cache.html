@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+        <h1>DanCR16</h1>
+        <p id="parrafo">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae fugiat error eaque cupiditate dolor
+            quae
+            neque quam repellat dolorum? Totam excepturi sunt odit temporibus quisquam numquam, illum consequuntur sint
+            ex.
+        </p>
+
+        <ul id="numeros">
+            <li>Primero</li>
+            <li>Segundo</li>
+            <li>Tercero</li>
+            <li>Cuarto</li>
+            <li>Quinto</li>
+        </ul>
+        
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+
+   //Mala Practica
+           // $('#numeros li').eq(2).remove();
+           // $('#numeros li').eq(1).remove();
+           // $('#numeros li').eq(0).remove();
+    //  BUENA PRACTICA
+        //ALMACENAMOS EN CACHE
+    var $numbers=$("#numeros li");
+            $numbers.eq(2).remove();
+            $numbers.eq(1).remove();
+            $numbers.eq(0).remove();
+
+            $numbers.eq(2).remove().end()
+                     .eq(1).remove().end()
+                     .eq(0).remove().end(); 
+    </script>
+</body>
+
+</html>
+
+
+
+<div>6</div>x
+<div>2</div>x
+<div>7</div>x
+<div>5</div>x
+<div>9</div>
+<div>4</div>x
+<div>8</div>x
+<div>1</div>x
+<div>3</div>x

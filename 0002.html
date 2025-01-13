@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>DanCR16</h1>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae fugiat error eaque cupiditate dolor quae
+        neque quam repellat dolorum? Totam excepturi sunt odit temporibus quisquam numquam, illum consequuntur sint ex.
+    </p>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+        var route = {
+            _routes: {},
+            add: function (url, action) {
+                this._routes[url] = action;
+            },
+            run: function () {
+                $.each(this._routes, function (patron) {
+                    //extrae la url location.href
+                    //patron es el elemento actual de la lista this._routes
+                    console.log(patron)
+                    if (location.href.match(patron)) {
+                        this();
+                    }
+                });
+            }
+        };
+        route.add('002.html', function () {
+            console.log("esto solio funciona aqui en 0002");
+        });
+        route.add('.*.html', function () {
+            console.log("Este codigo funcionara en todas la paginas");
+        });
+
+        route.run();
+
+
+    </script>
+</body>
+
+</html>

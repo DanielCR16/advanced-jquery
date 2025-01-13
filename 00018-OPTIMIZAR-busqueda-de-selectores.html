@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+        <h1>DanCR16</h1>
+        <p id="parrafo">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae fugiat error eaque cupiditate dolor
+            quae
+            neque quam repellat dolorum? Totam excepturi sunt odit temporibus quisquam numquam, illum consequuntur sint
+            ex.
+        </p>
+
+    <div id="pan">
+        <div id="jalea" class="jalea">
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+
+    iniciar_selector('#pan div:first');
+
+    iniciar_selector('#pan div');
+
+    iniciar_selector('#pan .jalea');
+
+    iniciar_selector('.jalea');
+
+    iniciar_selector('#pan');
+    
+        function iniciar_selector(selector){
+            console.log(selector);
+            var init=new Date().getTime();
+            for(var i =0;i<1000;i++){
+                $(selector);    
+            }
+
+            fin_timer(init);
+        }
+
+        function fin_timer(inicio){
+           var fin = new Date().getTime();
+           console.log("Tiempo: ",fin-inicio); 
+        }
+    </script>
+</body>
+
+</html>

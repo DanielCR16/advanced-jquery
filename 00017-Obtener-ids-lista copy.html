@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+        <h1>DanCR16</h1>
+        <p id="parrafo">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae fugiat error eaque cupiditate dolor
+            quae
+            neque quam repellat dolorum? Totam excepturi sunt odit temporibus quisquam numquam, illum consequuntur sint
+            ex.
+        </p>
+
+        <ul id="colores">
+            <li id="verde">Verde</li>
+            <li id="rojo">Rojo</li>
+            <li id="azul">Azul</li>
+            <li id="naranja">Naranja</li>
+            <li id="rosado">Rosado</li>
+        </ul>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+        //NO OPTIMIZADO
+        $('#colores li').each(function(){
+
+            //MODO CON JQUERY (NO IDEAL)
+            var id=$(this).attr('id');
+            //MODO JS PLANO (SI IDEAL)
+            var id=this.id;
+            console.log(id);
+        });
+    </script>
+</body>
+
+</html>
