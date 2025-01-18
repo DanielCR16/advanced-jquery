@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            background-color: mediumslateblue;
+            display: flex;
+            justify-content: center;
+            /* Centrado horizontal */
+            align-items: center;
+            /* Centrado vertical */
+            height: 100vh;
+            /* Por ejemplo, para que ocupe toda la pantalla */
+
+        }
+
+        #wrap-coupon-1502352480977 {
+            position: relative;
+            height: 500px;
+            width: 500px;
+            background-color: white;
+            display: inline-block;
+        }
+
+        #coupon-1502352480977 {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* canvas {
+            background-color: gray;
+        } */
+
+        .ins-scratch-coupon-canvas-title {
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            display: grid;
+            place-items: center;
+            font-size: 40px;
+        }
+
+        .ins-canvas-container canvas#ins-scratch {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap-coupon-1502352480977"
+        class="ins-canvas-container ins-selectable-element ins-element-wrap ins-element-coupon">
+        <div id="coupon-1502352480977" class="ins-scratch ins-element-content">
+            <div class="ins-scratch-coupon-canvas-title ins-element-copy-to-clipboard-text">******</div>
+            <canvas id="ins-scratch"></canvas>
+        </div>
+    </div>
+    <script src="assets/libs/jquery-3.min.js" charset="utf-8"></script>
+    <script>
+        var that = {};
+        var lastX, lastY, mouseX, mouseY;
+        var isMouseDown = false;
+
+        that.construct = function () {
+
+            //that.canvas = Insider.dom('#ins-scratch').nodes[0];
+            that.canvas = $('#ins-scratch')[0];
+            that.ctx = that.canvas.getContext('2d');
+            that.canvasWidth = that.canvas.width;
+            that.canvasHeight = that.canvas.height;
+
+            that.stratchInit();
+        }
+
+        that.stratchInit = function () {
+            console.log("canvas soportado?", that.isCanvasSupported());
+            if (that.isCanvasSupported()) {
+                that.triggerCanvas();
+            }
+        }
+        that.isCanvasSupported = function () {
+            var elem = document.createElement('canvas');
+            return !!(elem.getContext && elem.getContext('2d'));
+        }
+        that.triggerCanvas = function () {
+            //----si existe la campaing oculta el boton
+            //if (camp.id !== 0) {
+            //Insider.dom('.ins-scratch-coupon-inner-bottom').hide();  
+            // }
+
+            that.ctx.beginPath();
+            that.ctx.globalCompositeOperation = 'source-over';
+            that.ctx.fillStyle = '#875353';
+            that.ctx.fillRect(0, 0, that.canvasWidth, that.canvasHeight);
+            that.ctx.fill();
+
+            that.eventListener();
+        }
+        that.eventListener = function () {
+            //-----PARA CELULARES
+            //touchstart
+            //touchmove
+            //touchend
+
+            //$(that.canvas).on('mousedown', function (e) { that.handleMouseDown(e); });
+            //$(that.canvas).on('mousemove', function (e) { that.handleMouseMove(e); });
+            //$(that.canvas).on('mouseup', function (e) { that.setMouseStatus(e); });
+
+            that.canvas.addEventListener('mousedown', function (e) { that.handleMouseDown(e); }, false);
+            that.canvas.addEventListener('mousemove', function (e) { that.handleMouseMove(e); }, false);
+            that.canvas.addEventListener('mouseup', function (e) { that.setMouseStatus(e); }, false);
+        }
+
+        that.handleMouseDown = function (e) {
+
+            that.setMouseStatus(e);
+            lastX = mouseX;
+            lastY = mouseY;
+            isMouseDown = true;
+        };
+
+        that.handleMouseMove = function (e) {
+          
+            if (isMouseDown) {
+                that.ctx.beginPath();
+                that.ctx.globalCompositeOperation = 'destination-out';
+                that.ctx.arc(lastX, lastY, 30, 0, Math.PI * 2, false);
+                that.ctx.fill();
+
+                lastX = that.getPositionX(e);
+                lastY = that.getPositionY(e);
+                that.handlePercentage(that.getFilledInPixels(32));
+            }
+        };
+        that.setMouseStatus = function (e) {
+            mouseX = that.getPositionX(e);
+            mouseY = that.getPositionY(e);
+            isMouseDown = false;
+        };
+        that.getFilledInPixels = function (stride) {
+            if (!stride || stride < 1) {
+                stride = 1;
+            }
+
+            //Si tenemos un lienzo con 100PX X100PX
+            //Significa que tenemos 10,000
+            //Tenemos 500PX cubiertos
+
+            var pixels = that.ctx.getImageData(0, 0, that.canvasWidth, that.canvasHeight),
+
+                //"pdata" es el array de los valores RGBA de todos los píxeles. [R, G, B y A]
+                pdata = pixels.data,
+
+                //L= 40,000 (10,000*4(4 valores por píxel))
+                l = pdata.length,
+
+                //40000/32(32=stride) =1250
+                total = (l / stride),
+                count = 0;
+            //                         l=40000  /i=32      
+            //var count = 0;
+            // var i = 0;
+            //Si stride es 32: i aumentará de 32 en 32,
+            for (var i = count = 0; i < l; i += stride) {
+                if (parseInt(pdata[i]) === 0) {
+                    //COUNT = Pixeles cubiertos o borrados
+                    count++;
+                }
+            }
+            //Supongamos que encuentra 500
+            //count = 500
+            //                  500/1250 *100 = 40%           
+            return Math.round((count / total) * 100);
+        };
+
+        that.handlePercentage = function (filledInPixels) {
+            filledInPixels = filledInPixels || 0;
+            if (filledInPixels > 80) {
+                $(that.canvas).remove();
+
+                isMouseDown = false;
+
+                if (!that.isCouponExists()) {
+                    if (typeof window.insGetCouponOnce === 'undefined') {
+                        window.insGetCouponOnce = true;
+
+                        // Insider.eventManager.dispatch('getCoupon' + camp.id, that.getCouponCode);
+                    }
+                } else {
+                    $('.ins-scratch-coupon-canvas-title').text(that.getCouponCode());
+                }
+
+                return false;
+            }
+        };
+        that.getCouponCode = function () {
+            return 'MANDIL';
+        }
+        that.isCouponExists = function () {
+            var cupon = that.getCouponCode();
+            return cupon !== null;
+        };
+
+
+        that.getPositionX = function (e) {
+
+            //-------MOBILE
+            //   var clientX=typeof e.changedTouches[0].clientX !== 'undefined'?e.changedTouches[0].clientX:e.touches[0].clientX;
+            var clientX = e.offsetX;
+            return parseInt(clientX - that.canvasLeftPosition());
+        }
+        that.getPositionY = function (e) {
+            //FOR MOBILE
+            // var clientY=typeof e.changedTouches[0].clientY != 'undefined'?e.changedTouches[0].clientY:e.touches[0].clientY;
+            var clientY = e.offsetY;
+
+            //return parseInt(clientY - that.canvasTopPosition());
+
+            return parseInt((clientY - that.canvasTopPosition()) + $(window).scrollTop());
+        }
+        that.canvasLeftPosition = function () {
+            return $('#ins-scratch').length > 0 ? $('#ins-scratch').offset().left : 0;
+        }
+        that.canvasTopPosition = function () {
+            return $('#ins-scratch').length > 0 ? $('#ins-scratch').offset().top : 0;
+        }
+        that.construct();
+    </script>
+</body>
+
+</html>
