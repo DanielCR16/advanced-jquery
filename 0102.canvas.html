@@ -8,6 +8,17 @@
     <title>Proyecto canvas</title>
     <!-- <link rel="stylesheet" href="assets/styles.css"> -->
      <style>
+        .ins-canvas-container {
+    
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    /* flex-direction: row; */
+    align-items: center;
+    justify-content: center;
+
+        }
             .ins-scratch-coupon-canvas-title {
             height: 900px;
             width: 900px;
@@ -18,8 +29,8 @@
         }
         .ins-canvas-container canvas#main-canvas {
             position: absolute;
-            top: 0px;
-            left: 0;
+            /* top: 0;
+            left: 0; */
             /* width: 100%;
             height: 100%; */
 
@@ -39,21 +50,22 @@
         const mainCanvas = document.getElementById("main-canvas");
         const context = mainCanvas.getContext("2d");
     
-        let initialX;
-        let initialY;
-        let correccionX = 0;
-        let correccionY = 0;
+       
 
         let posicion = mainCanvas.getBoundingClientRect();
      
         correccionX = posicion.x;
         correccionY = posicion.y;
+
         context.beginPath();
         context.globalCompositeOperation = 'source-over';
         context.fillStyle = '#875353';
         context.fillRect(0, 0, mainCanvas.width, mainCanvas.height);
         context.fill();
 
+
+
+        
         const dibujar = (cursorX, cursorY) => {
 
             context.beginPath();
@@ -152,7 +164,7 @@
             return 'MANDIL';
         }
 
-        mainCanvas.addEventListener("mousedown", mouseDown);
+        mainCanvas.addEventListener("mousedown",function (e) { mouseDown(e); });
         mainCanvas.addEventListener("mouseup", mouseUp);
 
         //pantallas tactiles
