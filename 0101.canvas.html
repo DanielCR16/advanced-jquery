@@ -1,3 +1,7 @@
+<!-- Usa clientX y clientY si necesitas la posición en la pantalla visible (viewport+El viewport es el área visible de una página web en el navegador, es decir, lo que el usuario puede ver directamente sin hacer scroll). -->
+<!-- Usa pageX y pageY si necesitas la posición absoluta en el documento (considerando scroll). -->
+<!-- Usa offsetX y offsetY si estás interactuando con un elemento específico y necesitas coordenadas relativas a ese elemento.  -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +18,7 @@
             /* Centrado horizontal */
             align-items: center;
             /* Centrado vertical */
-            height: 100vh;
+            height: 200vh;
             /* Por ejemplo, para que ocupe toda la pantalla */
 
         }
@@ -52,8 +56,8 @@
             position: absolute;
             top: 0px;
             left: 0;
-            width: 100%;
-            height: 100%;
+            /* width: 100%; */
+            /* height: 100%; */
 
         }
     </style>
@@ -64,7 +68,7 @@
         class="ins-canvas-container ins-selectable-element ins-element-wrap ins-element-coupon">
         <div id="coupon-1502352480977" class="ins-scratch ins-element-content">
             <div class="ins-scratch-coupon-canvas-title ins-element-copy-to-clipboard-text">******</div>
-            <canvas id="ins-scratch"></canvas>
+            <canvas id="ins-scratch" width="500" height="500"></canvas>
         </div>
     </div>
     <script src="assets/libs/jquery-3.min.js" charset="utf-8"></script>
@@ -78,6 +82,7 @@
             //that.canvas = Insider.dom('#ins-scratch').nodes[0];
             that.canvas = $('#ins-scratch')[0];
             that.ctx = that.canvas.getContext('2d');
+           
             that.canvasWidth = that.canvas.width;
             that.canvasHeight = that.canvas.height;
 
@@ -122,33 +127,53 @@
             that.canvas.addEventListener('mousemove', function (e) { that.handleMouseMove(e); }, false);
             that.canvas.addEventListener('mouseup', function (e) { that.setMouseStatus(e); }, false);
         }
-
-        that.handleMouseDown = function (e) {
-
-            that.setMouseStatus(e);
-            lastX = mouseX;
-            lastY = mouseY;
-            isMouseDown = true;
-        };
-
-        that.handleMouseMove = function (e) {
-          
-            if (isMouseDown) {
-                that.ctx.beginPath();
-                that.ctx.globalCompositeOperation = 'destination-out';
-                that.ctx.arc(lastX, lastY, 30, 0, Math.PI * 2, false);
-                that.ctx.fill();
-
-                lastX = that.getPositionX(e);
-                lastY = that.getPositionY(e);
-                that.handlePercentage(that.getFilledInPixels(32));
-            }
-        };
         that.setMouseStatus = function (e) {
             mouseX = that.getPositionX(e);
             mouseY = that.getPositionY(e);
             isMouseDown = false;
         };
+
+        that.handleMouseDown = function (e) {
+            that.setMouseStatus(e);
+            lastX = mouseX;
+            lastY = mouseY;
+            isMouseDown = true;
+        };
+       //that.getMousePos = function (e) {
+ 
+       //    console.log("Rectificado", rect);
+       //    console.log("client", e.clientX,e.clientY);
+       //    console.log("Offset", e.offsetX,e.offsetY);
+
+       //!IMPORTANTE---  PARA HALLAR EL OFFSET RESTA (CLIENT - RECT.X o REC.LEFT)  ------ 
+
+       //  
+       //    const x = e.clientX - rect.x;
+       //    const y = e.clientY - rect.y;
+       //    return { x, y };
+       //};
+
+        that.handleMouseMove = function (e) {
+
+            if (isMouseDown) {
+
+                that.ctx.beginPath();
+                that.ctx.globalCompositeOperation = 'destination-out';
+                that.ctx.arc(lastX, lastY, 30, 0, Math.PI * 2, false);
+                that.ctx.fill();
+
+
+               // const pos = that.getMousePos(e);
+               // lastX = pos.x;
+               // lastY = pos.y;
+
+                lastX = that.getPositionX(e);
+                lastY = that.getPositionY(e);
+
+                that.handlePercentage(that.getFilledInPixels(32));
+            }
+        };
+
         that.getFilledInPixels = function (stride) {
             if (!stride || stride < 1) {
                 stride = 1;
@@ -215,20 +240,29 @@
 
 
         that.getPositionX = function (e) {
-
             //-------MOBILE
             //   var clientX=typeof e.changedTouches[0].clientX !== 'undefined'?e.changedTouches[0].clientX:e.touches[0].clientX;
-            var clientX = e.offsetX;
-            return parseInt(clientX - that.canvasLeftPosition());
+            var offsetX = e.offsetX;
+            var clientX = e.clientX;
+           // return clientX;
+           const rectifi=that.rectification();
+             //!IMPORTANTE---  PARA HALLAR EL OFFSET RESTA (CLIENT - RECT.X o REC.LEFT)  ------ 
+                return parseInt(clientX - rectifi.x);
         }
         that.getPositionY = function (e) {
             //FOR MOBILE
             // var clientY=typeof e.changedTouches[0].clientY != 'undefined'?e.changedTouches[0].clientY:e.touches[0].clientY;
-            var clientY = e.offsetY;
-
+              //!IMPORTANTE---  PARA HALLAR EL OFFSET RESTA (CLIENT - RECT.X o REC.LEFT)  ------ 
+            var offsetY = e.offsetY;
+            var clientY = e.clientY;
             //return parseInt(clientY - that.canvasTopPosition());
-
-            return parseInt((clientY - that.canvasTopPosition()) + $(window).scrollTop());
+            const rectifi=that.rectification();
+           // return clientY;
+            return parseInt((clientY - rectifi.y) );
+        }
+        that.rectification=function(){
+        const rect = that.canvas.getBoundingClientRect();
+          return {x:rect.x,y:rect.y}  
         }
         that.canvasLeftPosition = function () {
             return $('#ins-scratch').length > 0 ? $('#ins-scratch').offset().left : 0;
