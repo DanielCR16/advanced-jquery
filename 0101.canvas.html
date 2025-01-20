@@ -246,8 +246,9 @@
             var clientX = e.clientX;
            // return clientX;
            const rectifi=that.rectification();
+           const getLeftCanvas = that.canvasLeftPosition();
              //!IMPORTANTE---  PARA HALLAR EL OFFSET RESTA (CLIENT - RECT.X o REC.LEFT)  ------ 
-                return parseInt(clientX - rectifi.x);
+                return parseInt(clientX - getLeftCanvas);
         }
         that.getPositionY = function (e) {
             //FOR MOBILE
@@ -257,8 +258,13 @@
             var clientY = e.clientY;
             //return parseInt(clientY - that.canvasTopPosition());
             const rectifi=that.rectification();
-           // return clientY;
-            return parseInt((clientY - rectifi.y) );
+            const getTopCanvas = that.canvasTopPosition();
+
+          //--IMPORTANTE=  getBoundingClientRect(): te da la posición del elemento en el viewport (incluyendo el scroll).
+          //--IMPORTANTE=  offset().top: te da la posición del elemento en relación con el documento, pero sin tener en cuenta el desplazamiento (scroll).
+          
+          //return parseInt(clientY - rectifi.y );
+            return parseInt(clientY - getTopCanvas )+$(window).scrollTop();
         }
         that.rectification=function(){
         const rect = that.canvas.getBoundingClientRect();
@@ -275,3 +281,4 @@
 </body>
 
 </html>
+
